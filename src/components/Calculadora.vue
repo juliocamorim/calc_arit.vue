@@ -12,11 +12,22 @@ const estado = reactive ({
     },
     resultado: 0,
 });
-//definido objeto react
 
 const calculaResultado = () => {
     const { campoUm, campoDois, operacao } = estado;
-    estado.resultado = estado.operacoes[operacao](parseFloat(campoUm), parseFloat(campoDois));
+    const num1 = parseFloat(campoUm);
+    const num2 = parseFloat(campoDois);
+    //verificação de divisão < 0
+
+    if (!isNaN(num1) && !isNaN(num2)) {
+        if (operacao === 'divisao' && num2 === 0) {
+            estado.resultado = 'Erro! Divisão por zero';
+        } else {
+            estado.resultado = estado.operacoes[operacao](num1, num2);
+        }
+    } else {
+        estado.resultado = 'Valores Inválidos'
+    }
 };
 </script>
 
